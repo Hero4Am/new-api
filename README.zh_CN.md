@@ -301,6 +301,12 @@ docker run --name new-api -d --restart always \
 | **远程数据库** | MySQL ≥ 5.7.8 或 PostgreSQL ≥ 9.6 |
 | **容器引擎** | Docker / Docker Compose |
 
+**机器建议：**
+
+- 临时验证环境：`2 核 4G`
+- 正式文本请求环境：`4 核 8G`
+- 如使用 Dokploy，可参考：[`docs/installation/Dokploy.md`](./docs/installation/Dokploy.md)
+
 ### ⚙️ 环境变量配置
 
 <details>
@@ -384,6 +390,23 @@ docker run --name new-api -d --restart always \
 3. 一键安装
 
 📖 [图文教程](./docs/installation/BT.md)
+
+</details>
+
+<details>
+<summary><strong>方式 4：Dokploy（推荐用于测试环境与正式环境）</strong></summary>
+
+- 适合先在测试环境验证，再迁移到正式环境
+- 支持通过 Dokploy 管理域名、HTTPS、环境变量和 Compose 服务
+- 已整理测试环境（`2 核 4G`）与正式环境（`4 核 8G`）推荐配置
+
+📖 [Dokploy 部署说明](./docs/installation/Dokploy.md)
+🧩 [Dokploy 环境变量模板](./.env.dokploy.example)
+🧱 [Dokploy 测试环境 Compose](./docker-compose.dokploy.test.yml)
+🚀 [Dokploy 正式环境 Compose](./docker-compose.dokploy.production.yml)
+📋 [Dokploy 操作清单](./docs/installation/Dokploy-Checklist.md)
+✅ [正式上线前检查清单](./docs/installation/Go-Live-Checklist.md)
+⏱️ [上线当天执行顺序（超简版）](./docs/installation/Go-Live-Day.md)
 
 </details>
 
