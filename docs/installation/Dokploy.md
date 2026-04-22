@@ -40,6 +40,7 @@
 - 正式上线前检查清单：`docs/installation/Go-Live-Checklist.md`
 - 上线当天超简版顺序：`docs/installation/Go-Live-Day.md`
 - 运维收口清单：`docs/installation/Operations-Closeout-Checklist.md`
+- PostgreSQL 备份恢复：`docs/installation/PostgreSQL-Backup-Restore.md`
 
 建议流程：
 

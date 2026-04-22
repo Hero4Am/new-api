@@ -107,6 +107,7 @@ HTTP 200
 - `docs/installation/Go-Live-Checklist.md`
 - `docs/installation/Go-Live-Day.md`
 - `docs/installation/Operations-Closeout-Checklist.md`
+- `docs/installation/PostgreSQL-Backup-Restore.md`
 
 ## 9. 正式环境准备
 
@@ -126,4 +127,3 @@ HTTP 200
 - Let's Encrypt 证书由 Dokploy / Traefik 自动续期
 - Dokploy `Domains` 与 Compose 中手写 Traefik `labels` 同时存在时，可能导致 HTTPS 命中 `TRAEFIK DEFAULT CERT`
 - 当前推荐做法：域名、HTTP/HTTPS 路由、证书统一交给 Dokploy `Domains` 管理
-

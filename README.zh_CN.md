@@ -408,6 +408,7 @@ docker run --name new-api -d --restart always \
 ✅ [正式上线前检查清单](./docs/installation/Go-Live-Checklist.md)
 ⏱️ [上线当天执行顺序（超简版）](./docs/installation/Go-Live-Day.md)
 🔐 [运维收口清单](./docs/installation/Operations-Closeout-Checklist.md)
+💾 [PostgreSQL 备份与恢复](./docs/installation/PostgreSQL-Backup-Restore.md)
 
 </details>
 
