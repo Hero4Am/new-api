@@ -277,6 +277,8 @@ Redis 一般不需要迁移历史缓存。
 
 ## 最终检查清单
 
+更完整的运维收口事项见：`docs/installation/Operations-Closeout-Checklist.md`。
+
 ### 测试环境
 
 - [ ] 使用 `docker-compose.dokploy.test.yml`

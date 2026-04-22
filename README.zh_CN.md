@@ -407,6 +407,7 @@ docker run --name new-api -d --restart always \
 📋 [Dokploy 操作清单](./docs/installation/Dokploy-Checklist.md)
 ✅ [正式上线前检查清单](./docs/installation/Go-Live-Checklist.md)
 ⏱️ [上线当天执行顺序（超简版）](./docs/installation/Go-Live-Day.md)
+🔐 [运维收口清单](./docs/installation/Operations-Closeout-Checklist.md)
 
 </details>
 
