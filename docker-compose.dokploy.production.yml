@@ -1,9 +1,15 @@
-# New-API Docker Compose Configuration for Dokploy
+# New-API Dokploy Compose（正式环境：4 核 8G）
 #
-# Dokploy 会通过 Domains 页面自动管理 Traefik 路由和 HTTPS 证书，无需手动配置 Nginx
-# 环境变量在 Dokploy 面板的 Environment 标签页中配置
+# 适用机器配置：
+# - CPU：4 核
+# - 内存：8 GB
+# - 用途：正式文本请求环境起步配置
 #
-# ⚠️  IMPORTANT: Change all default passwords before deploying to production!
+# 说明：
+# - 适合文本请求为主、未来需扩容的正式环境
+# - 推荐后续将 PostgreSQL / Redis 拆分为独立服务
+# - 默认值按“4 核 8G、单实例起步”设置
+# - 域名和 HTTPS 统一在 Dokploy 的 Domains 页面管理
 
 services:
   new-api:
@@ -19,7 +25,7 @@ services:
       - SESSION_SECRET=${SESSION_SECRET}
       - CRYPTO_SECRET=${CRYPTO_SECRET}
       - MEMORY_CACHE_ENABLED=${MEMORY_CACHE_ENABLED:-true}
-      - SYNC_FREQUENCY=${SYNC_FREQUENCY:-60}
+      - SYNC_FREQUENCY=${SYNC_FREQUENCY:-30}
       - NODE_TYPE=${NODE_TYPE:-master}
       - NODE_NAME=${NODE_NAME:-new-api-1}
       - SQL_MAX_OPEN_CONNS=${SQL_MAX_OPEN_CONNS:-60}

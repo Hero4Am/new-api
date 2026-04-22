@@ -1,9 +1,16 @@
-# New-API Docker Compose Configuration for Dokploy
+# New-API Dokploy Compose（测试环境：腾讯云 2 核 4G）
 #
-# Dokploy 会通过 Domains 页面自动管理 Traefik 路由和 HTTPS 证书，无需手动配置 Nginx
-# 环境变量在 Dokploy 面板的 Environment 标签页中配置
+# 适用测试环境配置：
+# - 云厂商：腾讯云
+# - CPU：2 核
+# - 内存：4 GB
+# - 用途：测试环境、域名接入、功能验证、后台配置、联调测试
+# - 当前测试环境公网 IP：43.156.68.154
 #
-# ⚠️  IMPORTANT: Change all default passwords before deploying to production!
+# 说明：
+# - 仅建议单实例部署
+# - 不建议直接承接正式高并发流量
+# - 默认值按“文本请求为主、无图片/音频/视频”场景收紧
 
 services:
   new-api:
@@ -21,16 +28,16 @@ services:
       - MEMORY_CACHE_ENABLED=${MEMORY_CACHE_ENABLED:-true}
       - SYNC_FREQUENCY=${SYNC_FREQUENCY:-60}
       - NODE_TYPE=${NODE_TYPE:-master}
-      - NODE_NAME=${NODE_NAME:-new-api-1}
-      - SQL_MAX_OPEN_CONNS=${SQL_MAX_OPEN_CONNS:-60}
-      - SQL_MAX_IDLE_CONNS=${SQL_MAX_IDLE_CONNS:-20}
+      - NODE_NAME=${NODE_NAME:-new-api-test}
+      - SQL_MAX_OPEN_CONNS=${SQL_MAX_OPEN_CONNS:-20}
+      - SQL_MAX_IDLE_CONNS=${SQL_MAX_IDLE_CONNS:-8}
       - SQL_MAX_LIFETIME=${SQL_MAX_LIFETIME:-300}
-      - REDIS_POOL_SIZE=${REDIS_POOL_SIZE:-50}
-      - RELAY_MAX_IDLE_CONNS=${RELAY_MAX_IDLE_CONNS:-500}
-      - RELAY_MAX_IDLE_CONNS_PER_HOST=${RELAY_MAX_IDLE_CONNS_PER_HOST:-150}
+      - REDIS_POOL_SIZE=${REDIS_POOL_SIZE:-20}
+      - RELAY_MAX_IDLE_CONNS=${RELAY_MAX_IDLE_CONNS:-100}
+      - RELAY_MAX_IDLE_CONNS_PER_HOST=${RELAY_MAX_IDLE_CONNS_PER_HOST:-50}
       - STREAMING_TIMEOUT=${STREAMING_TIMEOUT:-180}
-      - MAX_REQUEST_BODY_MB=${MAX_REQUEST_BODY_MB:-8}
-      - MAX_FILE_DOWNLOAD_MB=${MAX_FILE_DOWNLOAD_MB:-8}
+      - MAX_REQUEST_BODY_MB=${MAX_REQUEST_BODY_MB:-4}
+      - MAX_FILE_DOWNLOAD_MB=${MAX_FILE_DOWNLOAD_MB:-4}
       - UPDATE_TASK=${UPDATE_TASK:-false}
       - CountToken=${CountToken:-false}
       - TRUSTED_REDIRECT_DOMAINS=${TRUSTED_REDIRECT_DOMAINS:-idtoken.ai}
