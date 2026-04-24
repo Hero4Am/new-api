@@ -7,7 +7,7 @@
 
 services:
   new-api:
-    image: calciumion/new-api:latest
+    image: ${APP_IMAGE:-calciumion/new-api:latest}
     restart: always
     command: --log-dir /app/logs
     environment:
