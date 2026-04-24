@@ -122,7 +122,7 @@ Dokploy 中必须将 `idtoken.ai` 配置在 Domains 页面统一管理。
 ```env
 TZ=Asia/Shanghai
 
-APP_IMAGE=ghcr.io/你的 GitHub 用户名或组织/new-api:test
+APP_IMAGE=ghcr.io/你的 GitHub 用户名或组织/new-api-private:test
 
 POSTGRES_PASSWORD=请替换为强密码
 REDIS_PASSWORD=请替换为强密码

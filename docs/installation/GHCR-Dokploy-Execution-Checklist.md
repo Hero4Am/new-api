@@ -8,6 +8,7 @@
 - 测试域名：`idtoken.ai`
 - 测试环境：腾讯云 `2核 4G`
 - 正式环境：计划 `4核 8G`
+- 私有镜像名：`ghcr.io/hero4am/new-api-private`
 
 当前参考文档：
 
@@ -26,7 +27,7 @@
 - [ ] 第 8 步：发布正式环境
 - [ ] 第 9 步：记录回滚版本
 
-> 说明：上面先按保守方式记录。即使当前测试镜像大概率已经推送成功，也建议等 GitHub Actions 页面最终变绿后再勾选第 3 步。
+> 说明：原先公开包 `ghcr.io/hero4am/new-api` 已存在；后续私有发布统一改走 `ghcr.io/hero4am/new-api-private`，因此需要再触发一次新的 workflow。
 
 ## 9 步执行清单
 
@@ -67,40 +68,35 @@
 核对：
 
 - [ ] workflow 最终状态为绿色成功
-- [ ] 产出标签 `ghcr.io/hero4am/new-api:test`
-- [ ] 产出标签 `ghcr.io/hero4am/new-api:sha-xxxxxxx`
+- [ ] 产出标签 `ghcr.io/hero4am/new-api-private:test`
+- [ ] 产出标签 `ghcr.io/hero4am/new-api-private:sha-xxxxxxx`
 - [ ] 在 Summary 中记录本次 `sha` 标签
 
-当前观察到的标签：
+历史公开包（仅记录）：
 
 - `ghcr.io/hero4am/new-api:test`
-- `ghcr.io/hero4am/new-api:sha-dad6dec`
+- `ghcr.io/hero4am/new-api:sha-f52049e`
+
+本次需要生成的新私有包标签：
+
+- `ghcr.io/hero4am/new-api-private:test`
+- `ghcr.io/hero4am/new-api-private:sha-xxxxxxx`
 
 建议：
 
-- 正式用于测试环境部署时，优先使用 `sha-dad6dec` 这种固定标签
+- 正式用于测试环境部署时，优先使用 `new-api-private:sha-xxxxxxx` 这种固定标签
 
 ### 4. 确认 GHCR 包可被 Dokploy 拉取
-
-如果 GHCR 包准备设为公开：
-
-- [ ] 在 GitHub `Packages` 页面确认容器包存在
-- [ ] 包可见性已设为 `public`
-
-如果 GHCR 包准备设为私有：
 
 - [ ] 已创建 GitHub PAT
 - [ ] PAT 至少包含 `read:packages`
 - [ ] Dokploy 已配置 GHCR Registry 凭证
-
-当前决策：
-
-- [ ] 公开拉取
-- [ ] 私有拉取
+- [ ] 已确认 `new-api-private` 保持 `Private`
+- [ ] Dokploy 测试拉取权限已验证通过
 
 备注：
 
-- 二选一即可，不需要同时做
+- 旧公开包 `new-api` 不再作为后续部署目标
 
 ### 5. 在 Dokploy 测试环境配置 `APP_IMAGE`
 
@@ -115,13 +111,13 @@
 推荐值：
 
 ```env
-APP_IMAGE=ghcr.io/hero4am/new-api:sha-dad6dec
+APP_IMAGE=ghcr.io/hero4am/new-api-private:sha-xxxxxxx
 ```
 
-临时快捷值（不建议长期依赖）：
+临时快捷值（仅测试）：
 
 ```env
-APP_IMAGE=ghcr.io/hero4am/new-api:test
+APP_IMAGE=ghcr.io/hero4am/new-api-private:test
 ```
 
 ### 6. 发布测试环境并验证
@@ -155,7 +151,7 @@ APP_IMAGE=ghcr.io/hero4am/new-api:test
 
 填写：
 
-- [ ] `source_tag=sha-dad6dec`
+- [ ] `source_tag=sha-xxxxxxx`
 - [ ] `release_tag=v2026.04.24-1`
 - [ ] `update_production_tag=true`
 
@@ -173,7 +169,7 @@ APP_IMAGE=ghcr.io/hero4am/new-api:test
 
 填写：
 
-- [ ] `APP_IMAGE=ghcr.io/hero4am/new-api:v2026.04.24-1`
+- [ ] `APP_IMAGE=ghcr.io/hero4am/new-api-private:v2026.04.24-1`
 
 执行：
 
@@ -204,7 +200,7 @@ APP_IMAGE=ghcr.io/hero4am/new-api:test
 
 - 当前正式版本：`________________`
 - 上一个稳定版本：`________________`
-- 测试通过版本：`ghcr.io/hero4am/new-api:sha-dad6dec`
+- 测试通过版本：`ghcr.io/hero4am/new-api-private:sha-xxxxxxx`
 
 ## 建议的实际跟进顺序
 

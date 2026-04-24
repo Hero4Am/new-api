@@ -119,7 +119,7 @@ Compose 文件选择：
 ### 基础项
 
 - [ ] `TZ=Asia/Shanghai`
-- [ ] `APP_IMAGE=ghcr.io/你的 GitHub 用户名或组织/new-api:test`（推荐）
+- [ ] `APP_IMAGE=ghcr.io/你的 GitHub 用户名或组织/new-api-private:test`（推荐）
 - [ ] `POSTGRES_USER=root`
 - [ ] `POSTGRES_PASSWORD=...`
 - [ ] `POSTGRES_DB=new-api`

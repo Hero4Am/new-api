@@ -17,6 +17,19 @@
 
 - `docs/installation/GHCR-Dokploy-Execution-Checklist.md`
 
+## 0. 私有镜像约定
+
+由于当前公开包 `ghcr.io/hero4am/new-api` 已经设为 `Public`，GitHub Packages 不能直接再改回 `Private`。
+
+因此从现在开始，后续私有发布统一改为新包：
+
+- `ghcr.io/hero4am/new-api-private`
+
+也就是说：
+
+- 旧的 `ghcr.io/hero4am/new-api` 只作为历史公开包保留
+- 新的测试/正式发布都使用 `ghcr.io/hero4am/new-api-private`
+
 ## 1. 当前采用的发布策略
 
 仓库已新增两条工作流：
@@ -37,8 +50,8 @@
 
 ### 测试环境标签
 
-- `ghcr.io/<GitHubOwner>/<Repo>:sha-xxxxxxx`
-- `ghcr.io/<GitHubOwner>/<Repo>:test`
+- `ghcr.io/<GitHubOwner>/<Repo>-private:sha-xxxxxxx`
+- `ghcr.io/<GitHubOwner>/<Repo>-private:test`
 
 说明：
 
@@ -47,8 +60,8 @@
 
 ### 正式环境标签
 
-- `ghcr.io/<GitHubOwner>/<Repo>:v2026.04.23-1`
-- `ghcr.io/<GitHubOwner>/<Repo>:production`
+- `ghcr.io/<GitHubOwner>/<Repo>-private:v2026.04.23-1`
+- `ghcr.io/<GitHubOwner>/<Repo>-private:production`
 
 说明：
 
@@ -80,19 +93,19 @@ image: ${APP_IMAGE:-calciumion/new-api:latest}
 测试环境：
 
 ```env
-APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:test
+APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api-private:test
 ```
 
 或者更稳一点：
 
 ```env
-APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:sha-abc1234
+APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api-private:sha-abc1234
 ```
 
 正式环境：
 
 ```env
-APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:v2026.04.23-1
+APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api-private:v2026.04.23-1
 ```
 
 `.env.dokploy.example` 已补充 `APP_IMAGE` 示例。
@@ -110,8 +123,8 @@ APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:v2026.04.23-1
 
 产物：
 
-- `ghcr.io/<owner>/<repo>:sha-xxxxxxx`
-- `ghcr.io/<owner>/<repo>:test`
+- `ghcr.io/<owner>/<repo>-private:sha-xxxxxxx`
+- `ghcr.io/<owner>/<repo>-private:test`
 
 ### 5.2 正式镜像提升
 
@@ -188,7 +201,7 @@ APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:v2026.04.23-1
 2. 在 Dokploy 正式环境把 `APP_IMAGE` 改回：
 
 ```env
-APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api:v2026.04.18-1
+APP_IMAGE=ghcr.io/<你的 GitHub 用户名或组织>/new-api-private:v2026.04.18-1
 ```
 
 3. 重新点击 `Deploy`
