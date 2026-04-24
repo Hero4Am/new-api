@@ -37,6 +37,7 @@
 - 测试环境 Compose：`docker-compose.dokploy.test.yml`
 - 正式环境 Compose：`docker-compose.dokploy.production.yml`
 - GHCR 发布流程：`docs/installation/GHCR-Dokploy-Release.md`
+- GHCR 执行清单：`docs/installation/GHCR-Dokploy-Execution-Checklist.md`
 - Dokploy 操作清单：`docs/installation/Dokploy-Checklist.md`
 - 正式上线前检查清单：`docs/installation/Go-Live-Checklist.md`
 - 上线当天超简版顺序：`docs/installation/Go-Live-Day.md`

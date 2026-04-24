@@ -13,6 +13,10 @@
 - 可以快速回滚到上一个稳定镜像
 - 以后正式环境扩容时，所有机器可拉同一个镜像
 
+执行跟进可配合：
+
+- `docs/installation/GHCR-Dokploy-Execution-Checklist.md`
+
 ## 1. 当前采用的发布策略
 
 仓库已新增两条工作流：
