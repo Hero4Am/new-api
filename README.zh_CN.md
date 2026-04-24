@@ -404,6 +404,7 @@ docker run --name new-api -d --restart always \
 🧩 [Dokploy 环境变量模板](./.env.dokploy.example)
 🧱 [Dokploy 测试环境 Compose](./docker-compose.dokploy.test.yml)
 🚀 [Dokploy 正式环境 Compose](./docker-compose.dokploy.production.yml)
+📦 [GHCR + Dokploy 标准发布流程](./docs/installation/GHCR-Dokploy-Release.md)
 📋 [Dokploy 操作清单](./docs/installation/Dokploy-Checklist.md)
 ✅ [正式上线前检查清单](./docs/installation/Go-Live-Checklist.md)
 ⏱️ [上线当天执行顺序（超简版）](./docs/installation/Go-Live-Day.md)

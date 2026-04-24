@@ -36,6 +36,7 @@
 - Dokploy 环境变量模板：`.env.dokploy.example`
 - 测试环境 Compose：`docker-compose.dokploy.test.yml`
 - 正式环境 Compose：`docker-compose.dokploy.production.yml`
+- GHCR 发布流程：`docs/installation/GHCR-Dokploy-Release.md`
 - Dokploy 操作清单：`docs/installation/Dokploy-Checklist.md`
 - 正式上线前检查清单：`docs/installation/Go-Live-Checklist.md`
 - 上线当天超简版顺序：`docs/installation/Go-Live-Day.md`
@@ -120,6 +121,8 @@ Dokploy 中必须将 `idtoken.ai` 配置在 Domains 页面统一管理。
 ```env
 TZ=Asia/Shanghai
 
+APP_IMAGE=ghcr.io/你的 GitHub 用户名或组织/new-api:test
+
 POSTGRES_PASSWORD=请替换为强密码
 REDIS_PASSWORD=请替换为强密码
 
@@ -133,6 +136,8 @@ TRUSTED_REDIRECT_DOMAINS=idtoken.ai
 ```
 
 > 如果 PostgreSQL / Redis 使用 Dokploy 的独立数据库服务或外部托管服务，请将 `postgres`、`redis` 替换为实际主机名。
+>
+> 如果暂时还不切到 GHCR，也可以先不配置 `APP_IMAGE`，Compose 会回退到默认镜像。
 
 ### 测试环境配置（腾讯云 2 核 4G）
 
