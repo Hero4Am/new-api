@@ -1,0 +1,82 @@
+name: Publish GHCR image (test)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "要构建的 Git 引用（分支、tag 或 commit）"
+        required: false
+        default: "main"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+          fetch-depth: 1
+
+      - name: 规范化镜像名
+        run: echo "GHCR_IMAGE=${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
+
+      - name: 生成版本信息
+        id: vars
+        run: |
+          SHORT_SHA="$(git rev-parse --short=7 HEAD)"
+          VERSION="sha-${SHORT_SHA}"
+          echo "short_sha=${SHORT_SHA}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "SHORT_SHA=${SHORT_SHA}" >> "$GITHUB_ENV"
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          echo "${VERSION}" > VERSION
+
+      - name: 设置 QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: 设置 Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 登录 GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 提取镜像元数据
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ env.GHCR_IMAGE }}
+          tags: |
+            type=raw,value=sha-${{ steps.vars.outputs.short_sha }}
+            type=raw,value=test
+
+      - name: 构建并推送测试镜像
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true
+
+      - name: 输出镜像信息
+        run: |
+          echo "### GHCR 测试镜像" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- ghcr.io/${GHCR_IMAGE}:sha-${SHORT_SHA}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- ghcr.io/${GHCR_IMAGE}:test" >> "$GITHUB_STEP_SUMMARY"
